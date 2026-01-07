@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBrain, faDna, faHeartPulse, faMicroscope, faStethoscope, faXRay } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Database, Brain, ChevronDown } from 'lucide-react';
+import { ArrowRight, Database, Brain, Activity, Scan, Microscope, Stethoscope, HeartPulse, Pill, Syringe, TestTube, Radio } from 'lucide-react';
 import Link from 'next/link';
 
 export function Hero() {
@@ -102,20 +102,50 @@ export function Hero() {
           </p>
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* Medical Imaging Modalities */}
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4"
         >
-          <div className="w-6 h-10 border-2 border-gray-400 rounded-full p-1 flex justify-center">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1 h-3 bg-gray-400 rounded-full"
-            />
+          <p className="text-xs text-gray-500 text-center mb-4 uppercase tracking-wider">
+            Supported Medical Imaging Modalities
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-6">
+            {[
+              { icon: Scan, label: 'MRI', delay: 0 },
+              { icon: Activity, label: 'CT Scan', delay: 0.1 },
+              { icon: Radio, label: 'X-Ray', delay: 0.2 },
+              { icon: HeartPulse, label: 'Ultrasound', delay: 0.3 },
+              { icon: Microscope, label: 'Pathology', delay: 0.4 },
+              { icon: Brain, label: 'PET Scan', delay: 0.5 },
+              { icon: Stethoscope, label: 'Cardiology', delay: 0.6 },
+              { icon: TestTube, label: 'Lab Data', delay: 0.7 },
+              { icon: Pill, label: 'Pharmacy', delay: 0.8 },
+              { icon: Syringe, label: 'Biopsy', delay: 0.9 },
+            ].map((modality) => (
+              <motion.div
+                key={modality.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.5,
+                  delay: modality.delay,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  repeatDelay: 3
+                }}
+                whileHover={{ scale: 1.2, y: -5 }}
+                className="flex flex-col items-center gap-2 group cursor-pointer"
+              >
+                <div className="p-3 rounded-xl bg-gradient-to-br from-primary-50 to-secondary-50 group-hover:from-primary-100 group-hover:to-secondary-100 transition-all duration-300 shadow-sm group-hover:shadow-md">
+                  <modality.icon className="w-5 h-5 text-primary-600" />
+                </div>
+                <span className="text-xs text-gray-600 font-medium">{modality.label}</span>
+              </motion.div>
+            ))}
           </div>
-          <ChevronDown className="mt-2 text-gray-400" size={20} />
         </motion.div>
       </div>
     </section>
