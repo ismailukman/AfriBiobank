@@ -209,15 +209,52 @@ The deployment is optimized for:
 - Automatic SSL certificate renewal
 - Firebase security rules (can be added later)
 
+## Firebase SDK Setup
+
+The project now includes Firebase SDK for backend services (Authentication, Firestore, Storage, Analytics).
+
+### Configuration Files
+
+- **`app/lib/firebase.ts`** - Firebase initialization and service exports
+- **`app/.env.local`** - Local environment variables (not in git)
+- **`app/.env.example`** - Environment variables template
+
+### Using Firebase in Your App
+
+Import Firebase services in your components:
+
+```typescript
+import { auth, db, storage, analytics } from '@/lib/firebase';
+
+// Authentication example
+import { signInWithEmailAndPassword } from 'firebase/auth';
+await signInWithEmailAndPassword(auth, email, password);
+
+// Firestore example
+import { collection, getDocs } from 'firebase/firestore';
+const querySnapshot = await getDocs(collection(db, 'users'));
+
+// Storage example
+import { ref, uploadBytes } from 'firebase/storage';
+const storageRef = ref(storage, 'images/profile.jpg');
+await uploadBytes(storageRef, file);
+```
+
+### Environment Variables
+
+Firebase configuration is stored in environment variables for security. The actual values are in `.env.local` (gitignored) and defaults are hardcoded in `lib/firebase.ts`.
+
 ## Next Steps
 
 After successful deployment:
 
 1. ✅ Verify site is live at afribiobank.web.app
 2. ✅ Set up custom domain (optional)
-3. ✅ Configure Firebase Authentication (for future backend)
-4. ✅ Set up Firebase Firestore (for future backend)
-5. ✅ Monitor site performance in Firebase Console
+3. ✅ Firebase SDK configured (Authentication, Firestore, Storage, Analytics)
+4. ⏭️ Enable Firebase Authentication methods in Firebase Console
+5. ⏭️ Create Firestore database and set security rules
+6. ⏭️ Configure Storage buckets and rules
+7. ✅ Monitor site performance in Firebase Console
 
 ---
 
