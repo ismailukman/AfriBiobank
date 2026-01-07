@@ -10,9 +10,19 @@ import { useTheme } from 'next-themes';
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navigation = [
     { name: 'About', href: '/about' },
@@ -26,14 +36,22 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <Image
-              src="/afribiobank_logo_w.svg"
-              alt="AfriBiobank Logo"
-              width={56}
-              height={56}
-              className="w-14 h-14"
-            />
+          <Link href="/" className="flex items-center space-x-3 relative">
+            <div
+              className={`transition-all duration-500 ease-out ${
+                isScrolled
+                  ? 'w-14 h-14 translate-y-0'
+                  : 'w-24 h-24 translate-y-7'
+              }`}
+            >
+              <Image
+                src="/afribiobank_logo_w.svg"
+                alt="AfriBiobank Logo"
+                width={96}
+                height={96}
+                className="w-full h-full"
+              />
+            </div>
             <span className="text-xl font-bold text-white">AfriBiobank</span>
           </Link>
 
