@@ -1,53 +1,80 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBrain, faDna, faHeartPulse, faMicroscope, faStethoscope, faXRay } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Database, Brain, Activity, Scan, Microscope, Stethoscope, HeartPulse, Pill, Syringe, TestTube, Radio } from 'lucide-react';
+import { ArrowRight, Database, Brain, Scan, BrainCircuit, Waves, HeartPulse, Microscope, TestTube } from 'lucide-react';
+import { Tac, Xray, UltrasoundScanner, HeartCardiogram } from 'healthicons-react';
 import Link from 'next/link';
 
 export function Hero() {
+  const modalityIcons = [
+    // Neuroimaging
+    { icon: Scan, label: 'MRI', position: { top: '10%', left: '8%' }, size: 'large', color: 'primary', type: 'lucide' },
+    { icon: BrainCircuit, label: 'fMRI', position: { top: '25%', right: '8%' }, size: 'large', color: 'secondary', type: 'lucide' },
+    { icon: Waves, label: 'DTI', position: { bottom: '35%', left: '15%' }, size: 'medium', color: 'primary', type: 'lucide' },
+    { icon: Brain, label: 'PET', position: { bottom: '15%', right: '12%' }, size: 'medium', color: 'secondary', type: 'lucide' },
+
+    // General Imaging
+    { icon: Tac, label: 'CT', position: { top: '45%', right: '6%' }, size: 'large', color: 'primary', type: 'healthicon' },
+    { icon: Xray, label: 'X-Ray', position: { top: '60%', left: '10%' }, size: 'medium', color: 'secondary', type: 'healthicon' },
+    { icon: UltrasoundScanner, label: 'Ultrasound', position: { top: '15%', left: '45%' }, size: 'medium', color: 'primary', type: 'healthicon' },
+
+    // Cardiac & Vascular
+    { icon: HeartCardiogram, label: 'Echo', position: { bottom: '25%', right: '40%' }, size: 'medium', color: 'secondary', type: 'healthicon' },
+    { icon: HeartPulse, label: 'ECG', position: { top: '35%', left: '25%' }, size: 'small', color: 'primary', type: 'lucide' },
+
+    // Pathology & Lab
+    { icon: Microscope, label: 'Pathology', position: { bottom: '45%', left: '35%' }, size: 'small', color: 'secondary', type: 'lucide' },
+    { icon: TestTube, label: 'Lab', position: { bottom: '10%', left: '25%' }, size: 'small', color: 'primary', type: 'lucide' },
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-16">
       <div className="hero-geo" />
       <div className="absolute inset-0" aria-hidden="true">
-        <span
-          className="hero-medical-icon large"
-          style={{ top: '6%', left: '10%', ['--float-x' as any]: '26px', ['--float-y' as any]: '-30px', ['--float-rotate' as any]: '8deg', ['--float-duration' as any]: '20s', ['--float-delay' as any]: '0s' }}
-        >
-          <FontAwesomeIcon icon={faBrain} />
-        </span>
-        <span
-          className="hero-medical-icon teal"
-          style={{ top: '12%', right: '14%', ['--float-x' as any]: '18px', ['--float-y' as any]: '-22px', ['--float-duration' as any]: '16s', ['--float-delay' as any]: '2s' }}
-        >
-          <FontAwesomeIcon icon={faMicroscope} />
-        </span>
-        <span
-          className="hero-medical-icon small green"
-          style={{ top: '58%', left: '6%', ['--float-x' as any]: '16px', ['--float-y' as any]: '-18px', ['--float-duration' as any]: '14s', ['--float-delay' as any]: '4s' }}
-        >
-          <FontAwesomeIcon icon={faDna} />
-        </span>
-        <span
-          className="hero-medical-icon"
-          style={{ bottom: '18%', right: '8%', ['--float-x' as any]: '22px', ['--float-y' as any]: '-26px', ['--float-duration' as any]: '18s', ['--float-delay' as any]: '1s' }}
-        >
-          <FontAwesomeIcon icon={faXRay} />
-        </span>
-        <span
-          className="hero-medical-icon small"
-          style={{ bottom: '26%', left: '46%', ['--float-x' as any]: '14px', ['--float-y' as any]: '-16px', ['--float-duration' as any]: '15s', ['--float-delay' as any]: '3s' }}
-        >
-          <FontAwesomeIcon icon={faStethoscope} />
-        </span>
-        <span
-          className="hero-medical-icon teal"
-          style={{ top: '40%', right: '30%', ['--float-x' as any]: '20px', ['--float-y' as any]: '-20px', ['--float-duration' as any]: '17s', ['--float-delay' as any]: '5s' }}
-        >
-          <FontAwesomeIcon icon={faHeartPulse} />
-        </span>
+        {modalityIcons.map((modality, index) => (
+          <motion.div
+            key={modality.label}
+            className="absolute flex flex-col items-center gap-1 cursor-pointer group"
+            style={modality.position}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: [0, -15, 0],
+            }}
+            transition={{
+              opacity: { duration: 0.5, delay: index * 0.1 },
+              scale: { duration: 0.5, delay: index * 0.1 },
+              y: {
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: index * 0.2,
+              }
+            }}
+            whileHover={{ scale: 1.2, y: -10 }}
+          >
+            <div className={`
+              rounded-2xl bg-gradient-to-br shadow-lg group-hover:shadow-xl transition-all duration-300
+              ${modality.color === 'primary'
+                ? 'from-primary-100 to-primary-200 group-hover:from-primary-200 group-hover:to-primary-300'
+                : 'from-secondary-100 to-secondary-200 group-hover:from-secondary-200 group-hover:to-secondary-300'
+              }
+              ${modality.size === 'large' ? 'p-5' : modality.size === 'medium' ? 'p-4' : 'p-3'}
+            `}>
+              <modality.icon
+                className={`
+                  ${modality.color === 'primary' ? 'text-primary-700' : 'text-secondary-700'}
+                  ${modality.size === 'large' ? 'w-8 h-8' : modality.size === 'medium' ? 'w-6 h-6' : 'w-5 h-5'}
+                `}
+              />
+            </div>
+            <span className="text-[10px] font-semibold text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity">
+              {modality.label}
+            </span>
+          </motion.div>
+        ))}
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -100,52 +127,6 @@ export function Hero() {
           <p className="mt-8 text-sm text-gray-500">
             Join 20+ institutions across 10 African countries already collaborating on AfriBiobank
           </p>
-        </motion.div>
-
-        {/* Medical Imaging Modalities */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4"
-        >
-          <p className="text-xs text-gray-500 text-center mb-4 uppercase tracking-wider">
-            Supported Medical Imaging Modalities
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-6">
-            {[
-              { icon: Scan, label: 'MRI', delay: 0 },
-              { icon: Activity, label: 'CT Scan', delay: 0.1 },
-              { icon: Radio, label: 'X-Ray', delay: 0.2 },
-              { icon: HeartPulse, label: 'Ultrasound', delay: 0.3 },
-              { icon: Microscope, label: 'Pathology', delay: 0.4 },
-              { icon: Brain, label: 'PET Scan', delay: 0.5 },
-              { icon: Stethoscope, label: 'Cardiology', delay: 0.6 },
-              { icon: TestTube, label: 'Lab Data', delay: 0.7 },
-              { icon: Pill, label: 'Pharmacy', delay: 0.8 },
-              { icon: Syringe, label: 'Biopsy', delay: 0.9 },
-            ].map((modality) => (
-              <motion.div
-                key={modality.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.5,
-                  delay: modality.delay,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  repeatDelay: 3
-                }}
-                whileHover={{ scale: 1.2, y: -5 }}
-                className="flex flex-col items-center gap-2 group cursor-pointer"
-              >
-                <div className="p-3 rounded-xl bg-gradient-to-br from-primary-50 to-secondary-50 group-hover:from-primary-100 group-hover:to-secondary-100 transition-all duration-300 shadow-sm group-hover:shadow-md">
-                  <modality.icon className="w-5 h-5 text-primary-600" />
-                </div>
-                <span className="text-xs text-gray-600 font-medium">{modality.label}</span>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>

@@ -49,7 +49,8 @@ export function Navbar() {
                 alt="AfriBiobank Logo"
                 width={96}
                 height={96}
-                className="w-full h-full"
+                priority
+                className="w-full h-auto"
               />
             </div>
             <span className="text-xl font-bold text-white">AfriBiobank</span>

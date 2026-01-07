@@ -88,10 +88,10 @@ export default function AboutPage() {
               <div className="inline-block px-4 py-2 bg-red-100 text-red-700 rounded-full mb-4 font-semibold">The Problem</div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">AI Fails African Patients</h2>
               <p className="text-lg text-gray-600 mb-4">
-                Meet Shade—a brilliant high school student in Lagos whose brain tumor was misdiagnosed by AI trained on European and North American data.
+                Meet Shade, a brilliant aspiring engineer and high school student in Lagos. She felt ill and using an AI-assisted tool, the radiologist diagnosed a brain tumor - but the system, trained entirely on data from outside Africa, fatally misinterpreted her tumor's aggression. The mismatch wasn't just technical; it was fatal.
               </p>
               <p className="text-lg text-gray-600 mb-4">
-                Across Africa, medical decisions are being made by systems that don't understand our unique genetics, disease profiles, or healthcare contexts.
+                Africa is data-rich, yet insight-poor.
               </p>
               <div className="space-y-3 mt-6">
                 {['1.4B people barely represented in global health databases', 'Data locked in hospital silos', 'AI bias leads to misdiagnosis', 'Privacy concerns block collaboration'].map((item, idx) => (
@@ -119,10 +119,10 @@ export default function AboutPage() {
               <div className="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full mb-4 font-semibold">Our Solution</div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">AfriBiobank Changes Everything</h2>
               <p className="text-lg text-gray-600 mb-4">
-                A collaborative platform connecting hospitals, researchers, and AI developers across Africa through revolutionary federated learning technology.
+                Medical imaging accounts for 90% of healthcare data, making it critical for diagnostic AI. Our framework connects hospitals, researchers, and policymakers across Africa to collaboratively train AI while keeping data secure and local.
               </p>
               <p className="text-lg text-gray-600 mb-4">
-                Institutions train AI together while keeping patient data secure and local—no more choosing between collaboration and privacy.
+                We don't just talk about equity - we build it into the architecture. Through global standards, semantic technologies, and rigorous certification processes, we've created Africa's first cross-border imaging infrastructure to provide insight in Africas healthcare.
               </p>
               <div className="space-y-3 mt-6">
                 {['Privacy-preserving federated learning', 'FAIR-compliant data repository', '50+ pre-trained AI models', 'Built-in ethics & compliance'].map((item, idx) => (
@@ -238,9 +238,14 @@ export default function AboutPage() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Platform Architecture</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
               Explore the technical infrastructure powering Africa's healthcare data revolution
             </p>
+            <div className="max-w-4xl mx-auto mt-4 p-4 bg-white/50 rounded-xl border border-gray-200">
+              <p className="text-sm text-gray-700 italic leading-relaxed">
+                Ismaila, L.E., Turki, H., Frikha, M., Weinstein, T., Hunja, F., Fourie, C. and Adeshina, S.A., 2024, October. AfriBiobank: Empowering Africa's Medical Imaging Research and Practice Through Data Sharing and Governance. MICCAI - Workshop (pp. 189-198). Springer Nature Switzerland.
+              </p>
+            </div>
           </motion.div>
 
           {/* Diagram Tabs */}
