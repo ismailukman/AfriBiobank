@@ -66,9 +66,12 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      { url: '/afribiobank_logo.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: '/afribiobank_logo.svg',
+    apple: '/afribiobank_logo.svg',
   },
   manifest: '/site.webmanifest',
 };
