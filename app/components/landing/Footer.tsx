@@ -8,7 +8,7 @@ export function Footer() {
         {/* Logo and Description */}
         <div className="flex items-center space-x-3 mb-8">
           <Image
-            src="/afribiobank_logo.svg"
+            src="/afribiobank_logo_w.svg"
             alt="AfriBiobank Logo"
             width={48}
             height={48}

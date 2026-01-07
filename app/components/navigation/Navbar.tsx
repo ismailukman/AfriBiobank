@@ -28,7 +28,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
             <Image
-              src="/afribiobank_logo.svg"
+              src="/afribiobank_logo_w.svg"
               alt="AfriBiobank Logo"
               width={40}
               height={40}
