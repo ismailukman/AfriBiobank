@@ -30,9 +30,9 @@ export function Navbar() {
             <Image
               src="/afribiobank_logo_w.svg"
               alt="AfriBiobank Logo"
-              width={40}
-              height={40}
-              className="w-10 h-10"
+              width={56}
+              height={56}
+              className="w-14 h-14"
             />
             <span className="text-xl font-bold text-white">AfriBiobank</span>
           </Link>

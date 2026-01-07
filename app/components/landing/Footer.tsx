@@ -10,9 +10,9 @@ export function Footer() {
           <Image
             src="/afribiobank_logo_w.svg"
             alt="AfriBiobank Logo"
-            width={48}
-            height={48}
-            className="w-12 h-12"
+            width={72}
+            height={72}
+            className="w-18 h-18"
           />
           <div>
             <h2 className="text-2xl font-bold text-white">AfriBiobank</h2>
