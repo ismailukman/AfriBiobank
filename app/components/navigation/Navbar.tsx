@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Menu, Moon, Sun, X } from 'lucide-react';
+import { Menu, Moon, Sun, X, LogIn } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 export function Navbar() {
@@ -79,10 +79,10 @@ export function Navbar() {
             >
               {mounted && theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-            <Button variant="ghost" className="text-gray-200 hover:text-white hover:bg-gray-800">
+            <Button variant="ghost" className="text-gray-200 hover:text-white hover:bg-gray-800 flex items-center gap-2">
+              <LogIn size={18} />
               Sign In
             </Button>
-            <Button className="bg-white text-gray-900 hover:bg-gray-100">Get Started</Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -119,10 +119,10 @@ export function Navbar() {
                 {mounted && theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                 {mounted && theme === 'dark' ? 'Light mode' : 'Dark mode'}
               </button>
-              <Button variant="ghost" className="w-full text-gray-200 hover:text-white hover:bg-gray-800">
+              <Button variant="ghost" className="w-full text-gray-200 hover:text-white hover:bg-gray-800 flex items-center justify-center gap-2">
+                <LogIn size={18} />
                 Sign In
               </Button>
-              <Button className="w-full bg-white text-gray-900 hover:bg-gray-100">Get Started</Button>
             </div>
           </div>
         </div>
