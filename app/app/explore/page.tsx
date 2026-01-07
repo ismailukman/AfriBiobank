@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, useInView } from 'framer-motion';
-import { ArrowRight, Cloud, Cpu, Database, FlaskConical, ShieldCheck, SlidersHorizontal } from 'lucide-react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Cloud, Cpu, Database, FlaskConical, ShieldCheck, SlidersHorizontal, X, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef, useState } from 'react';
 
@@ -148,8 +148,63 @@ function AnimatedNumber({ value, duration = 1400 }: { value: string; duration?: 
 }
 
 export default function ExplorePage() {
+  const [showNotice, setShowNotice] = useState(true);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+      {/* Demo Data Notice Popup */}
+      <AnimatePresence>
+        {showNotice && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4"
+            onClick={() => setShowNotice(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="relative bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setShowNotice(false)}
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-100 transition-colors"
+                aria-label="Close notice"
+              >
+                <X className="w-5 h-5 text-slate-500" />
+              </button>
+
+              {/* Icon */}
+              <div className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-primary-100 to-secondary-100 mb-4">
+                <Info className="w-7 h-7 text-primary-600" />
+              </div>
+
+              {/* Content */}
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                Demo Data Notice
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed mb-6">
+                These are currently demo data for test purposes only. AfriBiobank backend coming soon.
+              </p>
+
+              {/* Action Button */}
+              <Button
+                onClick={() => setShowNotice(false)}
+                className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700"
+              >
+                Got it
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <section className="relative overflow-hidden pt-24 pb-16">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute -top-24 left-10 h-80 w-80 rounded-full bg-primary-300 blur-3xl" />
