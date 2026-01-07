@@ -1,0 +1,203 @@
+# AfriBiobank Kubernetes Deployment Configuration
+# Complete deployment manifest for production
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: afribiobank
+
+---
+# Frontend Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: afribiobank
+  labels:
+    app: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: afribiobank/frontend:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: NEXT_PUBLIC_API_URL
+          value: "https://api.afribiobank.org/api/v1"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: afribiobank
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: LoadBalancer
+
+---
+# ML Service Deployment (with GPU)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-service
+  namespace: afribiobank
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ml-service
+  template:
+    metadata:
+      labels:
+        app: ml-service
+    spec:
+      containers:
+      - name: ml-service
+        image: afribiobank/ml-service:latest
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "2000m"
+            nvidia.com/gpu: 1
+          limits:
+            memory: "8Gi"
+            cpu: "4000m"
+            nvidia.com/gpu: 1
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: database-url
+      nodeSelector:
+        accelerator: nvidia-gpu
+
+---
+# PostgreSQL StatefulSet
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: afribiobank
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:16-alpine
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: "afribiobank"
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: password
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 100Gi
+
+---
+# Ingress Configuration
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: afribiobank-ingress
+  namespace: afribiobank
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  tls:
+  - hosts:
+    - afribiobank.org
+    - api.afribiobank.org
+    secretName: afribiobank-tls
+  rules:
+  - host: afribiobank.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
+  - host: api.afribiobank.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api-gateway
+            port:
+              number: 8000

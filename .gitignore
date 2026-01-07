@@ -1,0 +1,13 @@
+# Claude AI
+.claude/
+
+# Reference documentation (large files, can be stored separately)
+implementations_docs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

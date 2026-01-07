@@ -1,0 +1,448 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 142.1 76.2% 36.3%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 37.7 92.1% 50.2%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 142.1 70.6% 45.3%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 37.7 92.1% 50.2%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/50;
+}
+
+/* Animations */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 15s ease infinite;
+}
+
+/* Typography */
+.prose h1 {
+  @apply text-4xl font-bold mb-4;
+}
+
+.prose h2 {
+  @apply text-3xl font-bold mb-3;
+}
+
+.prose h3 {
+  @apply text-2xl font-semibold mb-2;
+}
+
+.prose p {
+  @apply mb-4 leading-relaxed;
+}
+
+.prose ul {
+  @apply list-disc list-inside mb-4;
+}
+
+.prose ol {
+  @apply list-decimal list-inside mb-4;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Medical image tile pattern */
+.medical-image-pattern {
+  position: relative;
+  overflow: hidden;
+}
+
+.medical-image-pattern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' fill='white' fill-opacity='0'/%3E%3Crect x='12' y='14' width='48' height='38' rx='6' fill='%23e2e8f0'/%3E%3Crect x='70' y='18' width='78' height='36' rx='6' fill='%23f1f5f9'/%3E%3Crect x='16' y='68' width='128' height='70' rx='10' fill='%23e2e8f0'/%3E%3Cpath d='M80 58v24M68 70h24' stroke='%2394a3b8' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='120' cy='38' r='7' fill='%23cbd5f5'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* Hero medical pattern with subtle drift */
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-pattern::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='white' fill-opacity='0'/%3E%3Crect x='16' y='18' width='56' height='44' rx='8' fill='%23e2e8f0'/%3E%3Crect x='82' y='20' width='82' height='40' rx='8' fill='%23f1f5f9'/%3E%3Crect x='18' y='78' width='144' height='78' rx='12' fill='%23e2e8f0'/%3E%3Cpath d='M90 66v30M75 81h30' stroke='%2394a3b8' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='132' cy='40' r='8' fill='%23cbd5f5'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  background-repeat: repeat;
+  opacity: 0.22;
+  animation: hero-pattern-drift 30s linear infinite;
+}
+
+@keyframes hero-pattern-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(120px, -80px, 0);
+  }
+}
+
+/* Hero geometric pattern with floating medical icons */
+.hero-geo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-geo::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  background-image:
+    radial-gradient(circle at 10px 10px, rgba(37, 99, 235, 0.2) 2px, transparent 2.5px),
+    linear-gradient(135deg, rgba(16, 185, 129, 0.14) 12%, transparent 12% 88%, rgba(16, 185, 129, 0.14) 88%),
+    linear-gradient(45deg, rgba(14, 116, 144, 0.12) 18%, transparent 18% 82%, rgba(14, 116, 144, 0.12) 82%);
+  background-size: 36px 36px, 200px 200px, 180px 180px;
+  background-repeat: repeat;
+  opacity: 0.8;
+  animation: hero-geo-drift 28s linear infinite;
+}
+
+.hero-geo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.85), transparent 55%),
+    radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.75), transparent 60%);
+}
+
+.hero-medical-icon {
+  position: absolute;
+  z-index: 1;
+  font-size: 72px;
+  color: rgba(37, 99, 235, 0.78);
+  filter: drop-shadow(0 12px 28px rgba(37, 99, 235, 0.2));
+  opacity: 0.75;
+  animation: icon-float var(--float-duration, 18s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  will-change: transform;
+}
+
+.hero-medical-icon svg {
+  display: block;
+}
+
+.hero-medical-icon.small {
+  font-size: 48px;
+  opacity: 0.6;
+}
+
+.hero-medical-icon.large {
+  font-size: 104px;
+  opacity: 0.88;
+}
+
+.hero-medical-icon.teal {
+  color: rgba(14, 116, 144, 0.7);
+}
+
+.hero-medical-icon.green {
+  color: rgba(16, 185, 129, 0.7);
+}
+
+@keyframes hero-geo-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(60px, -40px, 0);
+  }
+  100% {
+    transform: translate3d(120px, -80px, 0);
+  }
+}
+
+@keyframes icon-float {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(var(--float-x, 22px), var(--float-y, -24px), 0) rotate(var(--float-rotate, 6deg));
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+/* Animated geometric pattern for section backgrounds */
+.geometric-pattern {
+  position: relative;
+  overflow: hidden;
+}
+
+.geometric-pattern::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 12px 12px, rgba(59, 130, 246, 0.18) 2px, transparent 2.5px),
+    linear-gradient(135deg, rgba(16, 185, 129, 0.1) 12%, transparent 12% 88%, rgba(16, 185, 129, 0.1) 88%),
+    linear-gradient(45deg, rgba(14, 116, 144, 0.08) 18%, transparent 18% 82%, rgba(14, 116, 144, 0.08) 82%);
+  background-size: 28px 28px, 180px 180px, 160px 160px;
+  background-repeat: repeat;
+  opacity: 0.7;
+  animation: geometric-drift 26s linear infinite;
+  pointer-events: none;
+}
+
+.geometric-pattern::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.75), transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.65), transparent 60%);
+  pointer-events: none;
+}
+
+@keyframes geometric-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(60px, -40px, 0);
+  }
+  100% {
+    transform: translate3d(120px, -80px, 0);
+  }
+}
+
+/* Zuri emoji styling */
+.zuri-emoji {
+  display: inline-flex;
+  font-size: 20px;
+  filter: drop-shadow(0 6px 12px rgba(15, 23, 42, 0.2));
+  animation: zuri-bob 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes zuri-bob {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.03);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Dark mode fallbacks for existing light utility classes */
+.dark .bg-white {
+  background-color: #05070d;
+}
+
+.dark .bg-gray-50 {
+  background-color: #0a0f1c;
+}
+
+.dark .bg-gray-900 {
+  background-color: #02040a;
+}
+
+.dark .bg-slate-50 {
+  background-color: #0a0f1c;
+}
+
+.dark .text-gray-900 {
+  color: #ffffff;
+}
+
+.dark .text-gray-700 {
+  color: #e2e8f0;
+}
+
+.dark .text-gray-600 {
+  color: #cbd5f5;
+}
+
+.dark .text-gray-500 {
+  color: #a1b3d0;
+}
+
+.dark .text-slate-900 {
+  color: #ffffff;
+}
+
+.dark .text-slate-700 {
+  color: #e2e8f0;
+}
+
+.dark .text-slate-600 {
+  color: #cbd5f5;
+}
+
+.dark .text-slate-500 {
+  color: #a1b3d0;
+}
+
+.dark .border-gray-200 {
+  border-color: #2b3547;
+}
+
+.dark .border-gray-800 {
+  border-color: #2b3547;
+}
+
+.dark .border-slate-200 {
+  border-color: #2b3547;
+}
+
+.dark .zuri-bubble {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-color: #2b3547;
+}
+
+.dark .zuri-audio-bar {
+  background: #0b1220;
+  color: #e2e8f0;
+  border-color: #2b3547;
+}
+
+.dark .zuri-audio-toggle {
+  background: #1f2937;
+  color: #e2e8f0;
+}
+
+.dark .zuri-audio-icon {
+  background: #1f2937;
+  color: #e2e8f0;
+}
+
+/* Medical image viewer styles */
+.dicom-viewport {
+  @apply relative bg-black;
+  cursor: crosshair;
+}
+
+.dicom-viewport.panning {
+  cursor: move;
+}
+
+.dicom-viewport.zooming {
+  cursor: zoom-in;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid rgba(37, 99, 235, 0.1);
+  border-left-color: #2563EB;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
