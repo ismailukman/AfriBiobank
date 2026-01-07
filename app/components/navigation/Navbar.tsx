@@ -17,7 +17,7 @@ export function Navbar() {
   const navigation = [
     { name: 'About', href: '/about' },
     { name: 'Docs', href: '/docs' },
-    { name: 'AI Tools', href: '/ai-tools' },
+    { name: 'Toolbox', href: '/ai-tools' },
     { name: 'Contact', href: '/contact' },
   ];
 
