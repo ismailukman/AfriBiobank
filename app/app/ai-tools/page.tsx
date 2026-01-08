@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Brain,
@@ -21,6 +22,8 @@ import {
   ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
+import { Navbar } from '@/components/navigation/Navbar';
+import { Footer } from '@/components/landing/Footer';
 
 type AITool = {
   id: string;
@@ -325,9 +328,11 @@ export default function AIToolsPage() {
     : aiTools.filter(tool => tool.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-primary-600 via-purple-600 to-secondary-600 text-white">
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-primary-600 via-purple-600 to-secondary-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -359,7 +364,7 @@ export default function AIToolsPage() {
       </div>
 
       {/* Category Filter */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <div className="bg-white dark:bg-slate-950 border-b border-gray-200 dark:border-slate-800 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (
@@ -369,7 +374,7 @@ export default function AIToolsPage() {
                 className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
                   selectedCategory === category
                     ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
                 }`}
               >
                 {category}
@@ -393,7 +398,7 @@ export default function AIToolsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-gray-100 hover:border-primary-200"
+              className="group relative bg-white dark:bg-slate-900/80 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-gray-100 hover:border-primary-200 dark:border-slate-800"
             >
               {/* Gradient Header */}
               <div className={`h-2 bg-gradient-to-r ${tool.gradient}`} />
@@ -424,7 +429,7 @@ export default function AIToolsPage() {
                 </div>
 
                 {/* Title & Category */}
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 transition-colors">
                   {tool.title}
                 </h3>
                 <p className="text-sm text-primary-600 font-semibold mb-3">
@@ -432,25 +437,25 @@ export default function AIToolsPage() {
                 </p>
 
                 {/* Description */}
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                <p className="text-gray-600 dark:text-slate-300 text-sm mb-4 line-clamp-3">
                   {tool.description}
                 </p>
 
                 {/* Features */}
                 <div className="space-y-2 mb-4">
-                  <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+                  <p className="text-xs font-semibold text-gray-700 dark:text-slate-300 uppercase tracking-wide">
                     Key Features
                   </p>
                   <ul className="space-y-1">
                     {tool.features.slice(0, 3).map((feature, idx) => (
-                      <li key={idx} className="text-xs text-gray-600 flex items-start gap-2">
+                      <li key={idx} className="text-xs text-gray-600 dark:text-slate-300 flex items-start gap-2">
                         <span className="text-primary-500 mt-0.5">•</span>
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
                   {tool.features.length > 3 && (
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-gray-400 dark:text-slate-500">
                       +{tool.features.length - 3} more features
                     </p>
                   )}
@@ -459,7 +464,7 @@ export default function AIToolsPage() {
                 {/* API Endpoint */}
                 {tool.apiEndpoint && (
                   <div className="mb-4">
-                    <code className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                    <code className="text-xs bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-200 px-2 py-1 rounded">
                       {tool.apiEndpoint}
                     </code>
                   </div>
@@ -473,12 +478,12 @@ export default function AIToolsPage() {
                         Try API
                         <ArrowRight className="w-4 h-4" />
                       </button>
-                      <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold py-2 px-4 rounded-lg transition-colors">
+                      <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 text-sm font-semibold py-2 px-4 rounded-lg transition-colors">
                         Docs
                       </button>
                     </>
                   ) : (
-                    <button className="flex-1 bg-gray-100 text-gray-500 text-sm font-semibold py-2 px-4 rounded-lg cursor-not-allowed">
+                    <button className="flex-1 bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-400 text-sm font-semibold py-2 px-4 rounded-lg cursor-not-allowed">
                       Coming Soon
                     </button>
                   )}
@@ -515,8 +520,8 @@ export default function AIToolsPage() {
           </div>
         </div>
       </div>
-    </div>
+      </main>
+      <Footer />
+    </>
   );
 }
-
-const React = require('react');

@@ -74,7 +74,7 @@ const personas = [
 
 export function WhoWeServe() {
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-slate-950 dark:to-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -82,13 +82,13 @@ export function WhoWeServe() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wide mb-2">
+          <h2 className="text-sm font-semibold text-primary-600 dark:text-primary-300 uppercase tracking-wide mb-2">
             Who We Serve
           </h2>
-          <h3 className="text-4xl font-bold text-gray-900 mb-4">
+          <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Empowering Africa's Healthcare Ecosystem
           </h3>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-900 dark:text-slate-200 max-w-3xl mx-auto">
             Our platform serves diverse stakeholders across the African healthcare ecosystem and beyond.
           </p>
         </motion.div>
@@ -104,18 +104,18 @@ export function WhoWeServe() {
               whileHover={{ y: -5 }}
               className="group"
             >
-              <Card className="h-full hover:shadow-xl transition-all duration-500 border-2 hover:border-primary-200 rounded-2xl">
+              <Card className="h-full hover:shadow-xl transition-all duration-500 border-2 hover:border-primary-200 dark:border-slate-700 dark:bg-slate-900/80 rounded-2xl">
                 <CardHeader>
                   <div className="flex items-center space-x-4 mb-4">
                     <div className={`p-3 rounded-xl bg-gradient-to-br ${persona.color} shadow-lg group-hover:scale-110 transition-transform duration-500`}>
                       <persona.icon className="text-white" size={28} />
                     </div>
                     <div>
-                      <CardTitle className="text-xl">{persona.title}</CardTitle>
-                      <p className="text-sm text-primary-600 font-semibold">{persona.headline}</p>
+                      <CardTitle className="text-xl text-gray-900 dark:text-white">{persona.title}</CardTitle>
+                      <p className="text-sm text-primary-600 dark:text-primary-300 font-semibold">{persona.headline}</p>
                     </div>
                   </div>
-                  <CardDescription className="text-base mb-4">
+                  <CardDescription className="text-base text-gray-600 dark:text-slate-300 mb-4">
                     {persona.description}
                   </CardDescription>
                   <div className="space-y-2">
@@ -126,7 +126,7 @@ export function WhoWeServe() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.1 + idx * 0.05 }}
-                        className="flex items-start text-sm text-gray-600"
+                        className="flex items-start text-sm text-gray-600 dark:text-slate-300"
                       >
                         <span className="text-secondary-500 mr-2 mt-0.5">✓</span>
                         <span>{benefit}</span>

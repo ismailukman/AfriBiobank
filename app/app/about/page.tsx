@@ -76,7 +76,7 @@ export default function AboutPage() {
       </section>
 
       {/* Problem to Solution Narrative */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -86,11 +86,11 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
             >
               <div className="inline-block px-4 py-2 bg-red-100 text-red-700 rounded-full mb-4 font-semibold">The Problem</div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">AI Fails African Patients</h2>
-              <p className="text-lg text-gray-600 mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">AI Fails African Patients</h2>
+              <p className="text-lg text-gray-600 dark:text-slate-300 mb-4">
                 Meet Shade, a brilliant aspiring engineer and high school student in Lagos. She felt ill and using an AI-assisted tool, the radiologist diagnosed a brain tumor - but the system, trained entirely on data from outside Africa, fatally misinterpreted her tumor's aggression. The mismatch wasn't just technical; it was fatal.
               </p>
-              <p className="text-lg text-gray-600 mb-4">
+              <p className="text-lg text-gray-600 dark:text-slate-300 mb-4">
                 Africa is data-rich, yet insight-poor.
               </p>
               <div className="space-y-3 mt-6">
@@ -104,7 +104,7 @@ export default function AboutPage() {
                     className="flex items-start"
                   >
                     <span className="text-red-500 mr-3 text-xl">✗</span>
-                    <span className="text-gray-700">{item}</span>
+                    <span className="text-gray-700 dark:text-slate-200">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -117,11 +117,11 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
             >
               <div className="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full mb-4 font-semibold">Our Solution</div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">AfriBiobank Changes Everything</h2>
-              <p className="text-lg text-gray-600 mb-4">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">AfriBiobank Changes Everything</h2>
+              <p className="text-lg text-gray-600 dark:text-slate-300 mb-4">
                 Medical imaging accounts for 90% of healthcare data, making it critical for diagnostic AI. Our framework connects hospitals, researchers, and policymakers across Africa to collaboratively train AI while keeping data secure and local.
               </p>
-              <p className="text-lg text-gray-600 mb-4">
+              <p className="text-lg text-gray-600 dark:text-slate-300 mb-4">
                 We don't just talk about equity - we build it into the architecture. Through global standards, semantic technologies, and rigorous certification processes, we've created Africa's first cross-border imaging infrastructure to provide insight in Africas healthcare.
               </p>
               <div className="space-y-3 mt-6">
@@ -135,7 +135,7 @@ export default function AboutPage() {
                     className="flex items-start"
                   >
                     <span className="text-green-500 mr-3 text-xl">✓</span>
-                    <span className="text-gray-700">{item}</span>
+                    <span className="text-gray-700 dark:text-slate-200">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -145,7 +145,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-slate-950 dark:to-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12">
             <motion.div
@@ -153,13 +153,13 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full border-2 border-primary-200 shadow-xl rounded-2xl overflow-hidden">
+              <Card className="h-full border-2 border-primary-200 dark:border-slate-700 shadow-xl rounded-2xl overflow-hidden dark:bg-slate-900/80">
                 <div className="bg-gradient-to-br from-primary-500 to-primary-700 p-8 text-white">
                   <Eye size={48} className="mb-4" />
                   <h3 className="text-3xl font-bold mb-4">Our Vision</h3>
                 </div>
                 <CardContent className="p-8">
-                  <p className="text-lg text-gray-700 leading-relaxed">
+                  <p className="text-lg text-gray-700 dark:text-slate-300 leading-relaxed">
                     A future where every diagnostic AI system understands African patients as well as any other population—where data drives equitable healthcare outcomes across the continent.
                   </p>
                 </CardContent>
@@ -172,13 +172,13 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <Card className="h-full border-2 border-secondary-200 shadow-xl rounded-2xl overflow-hidden">
+              <Card className="h-full border-2 border-secondary-200 dark:border-slate-700 shadow-xl rounded-2xl overflow-hidden dark:bg-slate-900/80">
                 <div className="bg-gradient-to-br from-secondary-500 to-secondary-700 p-8 text-white">
                   <Target size={48} className="mb-4" />
                   <h3 className="text-3xl font-bold mb-4">Our Mission</h3>
                 </div>
                 <CardContent className="p-8">
-                  <p className="text-lg text-gray-700 leading-relaxed">
+                  <p className="text-lg text-gray-700 dark:text-slate-300 leading-relaxed">
                     To democratize access to African medical imaging data while preserving privacy and data sovereignty, enabling researchers and AI developers to build solutions that work for African populations.
                   </p>
                 </CardContent>
@@ -189,7 +189,7 @@ export default function AboutPage() {
       </section>
 
       {/* Core Values */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -197,8 +197,8 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Core Values</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Our Core Values</h2>
+            <p className="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
               Principles that guide everything we do at AfriBiobank
             </p>
           </motion.div>
@@ -213,13 +213,13 @@ export default function AboutPage() {
                 transition={{ delay: idx * 0.1 }}
                 whileHover={{ y: -5 }}
               >
-                <Card className="h-full hover:shadow-xl transition-all duration-500 border-2 hover:border-primary-200 rounded-2xl">
+                <Card className="h-full hover:shadow-xl transition-all duration-500 border-2 hover:border-primary-200 dark:border-slate-700 dark:bg-slate-900/80 rounded-2xl">
                   <CardHeader>
                     <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center mb-4 shadow-lg">
                       <value.icon className="text-white" size={28} />
                     </div>
-                    <CardTitle className="text-xl mb-2">{value.title}</CardTitle>
-                    <p className="text-gray-600">{value.desc}</p>
+                    <CardTitle className="text-xl text-gray-900 dark:text-white mb-2">{value.title}</CardTitle>
+                    <p className="text-gray-600 dark:text-slate-300">{value.desc}</p>
                   </CardHeader>
                 </Card>
               </motion.div>
@@ -229,7 +229,7 @@ export default function AboutPage() {
       </section>
 
       {/* System Architecture Diagrams */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+      <section className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -237,12 +237,12 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Platform Architecture</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Platform Architecture</h2>
+            <p className="text-xl text-gray-900 dark:text-slate-300 max-w-3xl mx-auto mb-6">
               Explore the technical infrastructure powering Africa's healthcare data revolution
             </p>
-            <div className="max-w-4xl mx-auto mt-4 p-4 bg-white/50 rounded-xl border border-gray-200">
-              <p className="text-sm text-gray-700 italic leading-relaxed">
+            <div className="max-w-4xl mx-auto mt-4 p-4 bg-white/50 dark:bg-slate-900/70 rounded-xl border border-gray-200 dark:border-slate-700">
+              <p className="text-sm text-gray-900 dark:text-slate-300 italic leading-relaxed">
                 Ismaila, L.E., Turki, H., Frikha, M., Weinstein, T., Hunja, F., Fourie, C. and Adeshina, S.A., 2024, October. AfriBiobank: Empowering Africa's Medical Imaging Research and Practice Through Data Sharing and Governance. MICCAI - Workshop (pp. 189-198). Springer Nature Switzerland.
               </p>
             </div>
@@ -259,7 +259,7 @@ export default function AboutPage() {
                 className={`flex items-center gap-3 px-6 py-4 rounded-2xl font-semibold transition-all duration-300 ${
                   activeDiagram === diagram.id
                     ? `bg-gradient-to-r ${diagram.color} text-white shadow-xl`
-                    : 'bg-white text-gray-700 hover:shadow-lg border-2 border-gray-200'
+                    : 'bg-white text-gray-700 hover:shadow-lg border-2 border-gray-200 dark:bg-slate-900/80 dark:text-slate-200 dark:border-slate-700'
                 }`}
               >
                 <diagram.icon size={24} />
@@ -274,7 +274,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-gray-200"
+            className="bg-white dark:bg-slate-900/80 rounded-3xl shadow-2xl overflow-hidden border-2 border-gray-200 dark:border-slate-700"
           >
             <div className={`bg-gradient-to-r ${diagrams[activeDiagram].color} p-8 text-white`}>
               <div className="flex items-start gap-4">
@@ -296,7 +296,7 @@ export default function AboutPage() {
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative rounded-2xl overflow-hidden bg-gray-50 p-6 shadow-inner"
+                className="relative rounded-2xl overflow-hidden bg-gray-50 dark:bg-slate-950 p-6 shadow-inner"
               >
                 <Image
                   src={diagrams[activeDiagram].image}
@@ -312,49 +312,49 @@ export default function AboutPage() {
               <div className="mt-6 grid md:grid-cols-3 gap-4">
                 {activeDiagram === 0 && (
                   <>
-                    <div className="bg-blue-50 rounded-xl p-4 border-2 border-blue-200">
-                      <h4 className="font-bold text-blue-900 mb-2">Multi-Layer Architecture</h4>
-                      <p className="text-sm text-blue-700">Presentation, microservices, and data layers for scalability</p>
+                    <div className="bg-blue-50 dark:bg-slate-900/80 rounded-xl p-4 border-2 border-blue-200 dark:border-slate-700">
+                      <h4 className="font-bold text-blue-900 dark:text-slate-100 mb-2">Multi-Layer Architecture</h4>
+                      <p className="text-sm text-blue-700 dark:text-slate-300">Presentation, microservices, and data layers for scalability</p>
                     </div>
-                    <div className="bg-cyan-50 rounded-xl p-4 border-2 border-cyan-200">
-                      <h4 className="font-bold text-cyan-900 mb-2">DICOM & FHIR Support</h4>
-                      <p className="text-sm text-cyan-700">Standards-compliant medical data processing</p>
+                    <div className="bg-cyan-50 dark:bg-slate-900/80 rounded-xl p-4 border-2 border-cyan-200 dark:border-slate-700">
+                      <h4 className="font-bold text-cyan-900 dark:text-slate-100 mb-2">DICOM & FHIR Support</h4>
+                      <p className="text-sm text-cyan-700 dark:text-slate-300">Standards-compliant medical data processing</p>
                     </div>
-                    <div className="bg-indigo-50 rounded-xl p-4 border-2 border-indigo-200">
-                      <h4 className="font-bold text-indigo-900 mb-2">Cloud-Native Design</h4>
-                      <p className="text-sm text-indigo-700">Kubernetes-ready containerized deployment</p>
+                    <div className="bg-indigo-50 dark:bg-slate-900/80 rounded-xl p-4 border-2 border-indigo-200 dark:border-slate-700">
+                      <h4 className="font-bold text-indigo-900 dark:text-slate-100 mb-2">Cloud-Native Design</h4>
+                      <p className="text-sm text-indigo-700 dark:text-slate-300">Kubernetes-ready containerized deployment</p>
                     </div>
                   </>
                 )}
                 {activeDiagram === 1 && (
                   <>
-                    <div className="bg-purple-50 rounded-xl p-4 border-2 border-purple-200">
-                      <h4 className="font-bold text-purple-900 mb-2">Multi-Stakeholder</h4>
-                      <p className="text-sm text-purple-700">Hospitals, researchers, governments, and patients</p>
+                    <div className="bg-purple-50 dark:bg-slate-900/80 rounded-xl p-4 border-2 border-purple-200 dark:border-slate-700">
+                      <h4 className="font-bold text-purple-900 dark:text-slate-100 mb-2">Multi-Stakeholder</h4>
+                      <p className="text-sm text-purple-700 dark:text-slate-300">Hospitals, researchers, governments, and patients</p>
                     </div>
-                    <div className="bg-pink-50 rounded-xl p-4 border-2 border-pink-200">
-                      <h4 className="font-bold text-pink-900 mb-2">Ethical Governance</h4>
-                      <p className="text-sm text-pink-700">Community oversight and transparent decision-making</p>
+                    <div className="bg-pink-50 dark:bg-slate-900/80 rounded-xl p-4 border-2 border-pink-200 dark:border-slate-700">
+                      <h4 className="font-bold text-pink-900 dark:text-slate-100 mb-2">Ethical Governance</h4>
+                      <p className="text-sm text-pink-700 dark:text-slate-300">Community oversight and transparent decision-making</p>
                     </div>
-                    <div className="bg-rose-50 rounded-xl p-4 border-2 border-rose-200">
-                      <h4 className="font-bold text-rose-900 mb-2">Pan-African Network</h4>
-                      <p className="text-sm text-rose-700">Connecting institutions across the continent</p>
+                    <div className="bg-rose-50 dark:bg-slate-900/80 rounded-xl p-4 border-2 border-rose-200 dark:border-slate-700">
+                      <h4 className="font-bold text-rose-900 dark:text-slate-100 mb-2">Pan-African Network</h4>
+                      <p className="text-sm text-rose-700 dark:text-slate-300">Connecting institutions across the continent</p>
                     </div>
                   </>
                 )}
                 {activeDiagram === 2 && (
                   <>
-                    <div className="bg-green-50 rounded-xl p-4 border-2 border-green-200">
-                      <h4 className="font-bold text-green-900 mb-2">Privacy-Preserving</h4>
-                      <p className="text-sm text-green-700">Local data stays local, only models are shared</p>
+                    <div className="bg-green-50 dark:bg-slate-900/80 rounded-xl p-4 border-2 border-green-200 dark:border-slate-700">
+                      <h4 className="font-bold text-green-900 dark:text-slate-100 mb-2">Privacy-Preserving</h4>
+                      <p className="text-sm text-green-700 dark:text-slate-300">Local data stays local, only models are shared</p>
                     </div>
-                    <div className="bg-teal-50 rounded-xl p-4 border-2 border-teal-200">
-                      <h4 className="font-bold text-teal-900 mb-2">Differential Privacy</h4>
-                      <p className="text-sm text-teal-700">Mathematical guarantees for data protection</p>
+                    <div className="bg-teal-50 dark:bg-slate-900/80 rounded-xl p-4 border-2 border-teal-200 dark:border-slate-700">
+                      <h4 className="font-bold text-teal-900 dark:text-slate-100 mb-2">Differential Privacy</h4>
+                      <p className="text-sm text-teal-700 dark:text-slate-300">Mathematical guarantees for data protection</p>
                     </div>
-                    <div className="bg-emerald-50 rounded-xl p-4 border-2 border-emerald-200">
-                      <h4 className="font-bold text-emerald-900 mb-2">Collaborative AI</h4>
-                      <p className="text-sm text-emerald-700">Train together without sharing raw data</p>
+                    <div className="bg-emerald-50 dark:bg-slate-900/80 rounded-xl p-4 border-2 border-emerald-200 dark:border-slate-700">
+                      <h4 className="font-bold text-emerald-900 dark:text-slate-100 mb-2">Collaborative AI</h4>
+                      <p className="text-sm text-emerald-700 dark:text-slate-300">Train together without sharing raw data</p>
                     </div>
                   </>
                 )}
@@ -398,13 +398,13 @@ export default function AboutPage() {
       </section>
 
       {/* Closing Quote */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-slate-950 dark:to-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-white rounded-3xl shadow-2xl border-2 border-primary-200 overflow-hidden"
+            className="bg-white dark:bg-slate-900/80 rounded-3xl shadow-2xl border-2 border-primary-200 dark:border-slate-700 overflow-hidden"
           >
             <div className="bg-gradient-to-r from-primary-600 to-secondary-600 px-8 py-6">
               <p className="text-white/90 text-sm font-semibold uppercase tracking-wider text-center">
@@ -412,13 +412,13 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="p-10 text-center">
-              <blockquote className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 relative">
+              <blockquote className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 relative">
                 <span className="text-primary-500 text-6xl absolute -top-4 -left-2 opacity-30">"</span>
                 The strength of the crocodile lies in the water it lives in.
                 <span className="text-primary-500 text-6xl absolute -bottom-8 -right-2 opacity-30">"</span>
               </blockquote>
-              <div className="mt-8 pt-8 border-t-2 border-gray-200">
-                <p className="text-xl text-gray-700 font-medium">
+              <div className="mt-8 pt-8 border-t-2 border-gray-200 dark:border-slate-700">
+                <p className="text-xl text-gray-700 dark:text-slate-300 font-medium">
                   AfriBiobank is that water. Let's make sure Africa's health insight flows from its own data.
                 </p>
               </div>

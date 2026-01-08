@@ -38,7 +38,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-green-50">
+    <section className="py-20 bg-gradient-to-br from-blue-50 to-green-50 dark:from-slate-950 dark:to-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -46,10 +46,10 @@ export function HowItWorks() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wide mb-2">
+          <h2 className="text-sm font-semibold text-primary-600 dark:text-primary-300 uppercase tracking-wide mb-2">
             How It Works
           </h2>
-          <h3 className="text-4xl font-bold text-gray-900 mb-4">
+          <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             From Data to Discovery in Five Simple Steps
           </h3>
         </motion.div>
@@ -72,37 +72,37 @@ export function HowItWorks() {
               >
                 {/* Content */}
                 <div className="flex-1">
-                  <div className={`bg-white p-6 rounded-lg shadow-md ${
+                  <div className={`bg-white dark:bg-slate-900/80 p-6 rounded-lg shadow-md ${
                     index % 2 === 0 ? 'lg:text-right' : ''
                   }`}>
-                    <h4 className="text-2xl font-bold text-gray-900 mb-2">
+                    <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                       Step {index + 1}: {step.title}
                     </h4>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-600 dark:text-slate-300 mb-4">
                       {step.description}
                     </p>
                     {step.timeline && (
-                      <p className="text-sm text-primary-600 font-semibold">
+                      <p className="text-sm text-primary-600 dark:text-primary-300 font-semibold">
                         Timeline: {step.timeline}
                       </p>
                     )}
                     {step.features && (
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-slate-400">
                         {step.features}
                       </p>
                     )}
                     {step.tools && (
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-slate-400">
                         Tools: {step.tools}
                       </p>
                     )}
                     {step.capabilities && (
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-slate-400">
                         Capabilities: {step.capabilities}
                       </p>
                     )}
                     {step.outcomes && (
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-slate-400">
                         Outcomes: {step.outcomes}
                       </p>
                     )}
@@ -129,7 +129,7 @@ export function HowItWorks() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <p className="text-xl font-semibold text-gray-900 mb-6">
+          <p className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
             Ready to Get Started?
           </p>
           <button className="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors">

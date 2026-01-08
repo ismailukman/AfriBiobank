@@ -16,7 +16,7 @@ export function Footer() {
           />
           <div>
             <h2 className="text-2xl font-bold text-white">AfriBiobank</h2>
-            <p className="text-sm text-gray-400">Powering Africa's Healthcare with Precision and Insight</p>
+            <p className="text-sm text-gray-200">Powering Africa's Healthcare with Precision and Insight</p>
           </div>
         </div>
 
@@ -58,7 +58,7 @@ export function Footer() {
         </div>
         <div className="border-t border-gray-800 pt-8 text-center">
           <p>&copy; 2025 AfriBiobank. Powering Africa's Healthcare with Precision and Insight.</p>
-          <p className="text-sm text-gray-500 mt-2">Developed and Maintained by AfriBiobank Open-Source Team</p>
+          <p className="text-sm text-gray-300 mt-2">Developed and Maintained by AfriBiobank Open-Source Team</p>
         </div>
       </div>
     </footer>

@@ -1,10 +1,13 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, MessageCircle, Building2, HelpCircle, Briefcase } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, MapPin, Phone, MessageCircle, Building2, HelpCircle, Briefcase, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Navbar } from '@/components/navigation/Navbar';
 import { Footer } from '@/components/landing/Footer';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const offices = [
   {
@@ -76,9 +79,156 @@ const contactReasons = [
   },
 ];
 
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  institution: string;
+  inquiryType: string;
+  message: string;
+  consent: boolean;
+}
+
+interface FormErrors {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  inquiryType?: string;
+  message?: string;
+  consent?: string;
+}
+
 export default function ContactPage() {
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    institution: '',
+    inquiryType: '',
+    message: '',
+    consent: false,
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Validate first name
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    }
+
+    // Validate last name
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    // Validate inquiry type
+    if (!formData.inquiryType || formData.inquiryType === 'Select an option') {
+      newErrors.inquiryType = 'Please select an inquiry type';
+    }
+
+    // Validate message
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+
+    // Validate consent
+    if (!formData.consent) {
+      newErrors.consent = 'You must agree to the privacy policy';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+    const checked = type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // Add document to Firestore
+      const contactsRef = collection(db, 'contacts');
+      await addDoc(contactsRef, {
+        ...formData,
+        submittedAt: serverTimestamp(),
+        status: 'new',
+      });
+
+      setSubmitStatus('success');
+      setSubmitMessage('Thank you for contacting us! We\'ll get back to you within 24-48 hours.');
+
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        institution: '',
+        inquiryType: '',
+        message: '',
+        consent: false,
+      });
+
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 5000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+      setSubmitMessage('Something went wrong. Please try again or email us directly.');
+
+      // Clear error message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-950 dark:to-slate-900">
       <Navbar />
 
       {/* Hero Section */}
@@ -90,10 +240,10 @@ export default function ContactPage() {
             className="text-center"
           >
             <Mail className="mx-auto text-primary-600 mb-6" size={64} />
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               Get in Touch
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-900 dark:text-slate-300 max-w-3xl mx-auto">
               We'd love to hear from you. Reach out to our team across Africa.
             </p>
           </motion.div>
@@ -109,7 +259,7 @@ export default function ContactPage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">What can we help you with?</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">What can we help you with?</h2>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -122,20 +272,20 @@ export default function ContactPage() {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
               >
-                <Card className="h-full hover:shadow-xl transition-all duration-500 border-2 hover:border-primary-200 rounded-2xl">
+                <Card className="h-full hover:shadow-xl transition-all duration-500 border-2 hover:border-primary-200 dark:border-slate-700 dark:bg-slate-900/80 rounded-2xl">
                   <CardHeader>
                     <div className="flex items-start space-x-4">
                       <div className={`p-3 rounded-xl bg-gradient-to-br ${reason.color} shadow-lg flex-shrink-0`}>
                         <reason.icon className="text-white" size={28} />
                       </div>
                       <div className="flex-1">
-                        <CardTitle className="text-xl mb-2">{reason.title}</CardTitle>
-                        <CardDescription className="text-sm mb-3">
+                        <CardTitle className="text-xl mb-2 text-gray-900 dark:text-white">{reason.title}</CardTitle>
+                        <CardDescription className="text-sm mb-3 text-gray-600 dark:text-slate-300">
                           {reason.description}
                         </CardDescription>
                         <a
                           href={`mailto:${reason.email}`}
-                          className="text-primary-600 hover:text-primary-700 font-semibold text-sm flex items-center"
+                          className="text-primary-600 dark:text-primary-300 hover:text-primary-700 font-semibold text-sm flex items-center"
                         >
                           <Mail size={16} className="mr-2" />
                           {reason.email}
@@ -157,60 +307,122 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-lg"
+            className="bg-white dark:bg-slate-900/80 rounded-2xl p-8 border-2 border-gray-200 dark:border-slate-700 shadow-lg"
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Send us a message</h3>
-            <form className="space-y-6">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Send us a message</h3>
+
+            {/* Status Messages */}
+            <AnimatePresence>
+              {submitStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-xl flex items-start"
+                >
+                  <CheckCircle className="text-green-600 mr-3 flex-shrink-0" size={24} />
+                  <p className="text-green-800">{submitMessage}</p>
+                </motion.div>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl flex items-start"
+                >
+                  <AlertCircle className="text-red-600 mr-3 flex-shrink-0" size={24} />
+                  <p className="text-red-800">{submitMessage}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                     First Name *
                   </label>
                   <input
                     type="text"
-                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-primary-500 focus:outline-none"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-lg border-2 ${
+                      errors.firstName ? 'border-red-500' : 'border-gray-300 dark:border-slate-700'
+                    } focus:border-primary-500 focus:outline-none transition-colors dark:bg-slate-950 dark:text-white`}
                     placeholder="John"
                   />
+                  {errors.firstName && (
+                    <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>
+                  )}
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                     Last Name *
                   </label>
                   <input
                     type="text"
-                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-primary-500 focus:outline-none"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-lg border-2 ${
+                      errors.lastName ? 'border-red-500' : 'border-gray-300 dark:border-slate-700'
+                    } focus:border-primary-500 focus:outline-none transition-colors dark:bg-slate-950 dark:text-white`}
                     placeholder="Doe"
                   />
+                  {errors.lastName && (
+                    <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>
+                  )}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                   Email Address *
                 </label>
                 <input
                   type="email"
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-primary-500 focus:outline-none"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className={`w-full px-4 py-3 rounded-lg border-2 ${
+                    errors.email ? 'border-red-500' : 'border-gray-300 dark:border-slate-700'
+                  } focus:border-primary-500 focus:outline-none transition-colors dark:bg-slate-950 dark:text-white`}
                   placeholder="john.doe@institution.edu"
                 />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                )}
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                   Institution / Organization
                 </label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-primary-500 focus:outline-none"
+                  name="institution"
+                  value={formData.institution}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-slate-700 focus:border-primary-500 focus:outline-none transition-colors dark:bg-slate-950 dark:text-white"
                   placeholder="University of Lagos"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                   Inquiry Type *
                 </label>
-                <select className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-primary-500 focus:outline-none">
+                <select
+                  name="inquiryType"
+                  value={formData.inquiryType}
+                  onChange={handleInputChange}
+                  className={`w-full px-4 py-3 rounded-lg border-2 ${
+                    errors.inquiryType ? 'border-red-500' : 'border-gray-300 dark:border-slate-700'
+                  } focus:border-primary-500 focus:outline-none transition-colors dark:bg-slate-950 dark:text-white`}
+                >
                   <option>Select an option</option>
                   <option>Institutional Partnership</option>
                   <option>Commercial Inquiry</option>
@@ -219,38 +431,65 @@ export default function ContactPage() {
                   <option>Academic Research</option>
                   <option>Other</option>
                 </select>
+                {errors.inquiryType && (
+                  <p className="mt-1 text-sm text-red-600">{errors.inquiryType}</p>
+                )}
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                   Message *
                 </label>
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   rows={6}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-primary-500 focus:outline-none resize-none"
+                  className={`w-full px-4 py-3 rounded-lg border-2 ${
+                    errors.message ? 'border-red-500' : 'border-gray-300 dark:border-slate-700'
+                  } focus:border-primary-500 focus:outline-none resize-none transition-colors dark:bg-slate-950 dark:text-white`}
                   placeholder="Tell us more about your inquiry..."
                 />
+                {errors.message && (
+                  <p className="mt-1 text-sm text-red-600">{errors.message}</p>
+                )}
               </div>
 
               <div className="flex items-start">
                 <input
                   type="checkbox"
-                  className="mt-1 mr-2"
+                  name="consent"
                   id="consent"
+                  checked={formData.consent}
+                  onChange={handleInputChange}
+                  className={`mt-1 mr-2 w-4 h-4 ${
+                    errors.consent ? 'border-red-500' : ''
+                  }`}
                 />
-                <label htmlFor="consent" className="text-sm text-gray-600">
+                <label htmlFor="consent" className="text-sm text-gray-600 dark:text-slate-300">
                   I agree to AfriBiobank's <a href="/privacy" className="text-primary-600 hover:underline">Privacy Policy</a> and consent to being contacted about my inquiry.
                 </label>
               </div>
+              {errors.consent && (
+                <p className="text-sm text-red-600 -mt-4">{errors.consent}</p>
+              )}
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-4 rounded-xl font-semibold hover:opacity-90 transition-all shadow-lg"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-4 rounded-xl font-semibold hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
               >
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="animate-spin mr-2" size={20} />
+                    Sending...
+                  </>
+                ) : (
+                  'Send Message'
+                )}
               </button>
 
-              <p className="text-xs text-center text-gray-500">
+              <p className="text-xs text-center text-gray-500 dark:text-slate-400">
                 We typically respond within 24-48 hours during business days
               </p>
             </form>
@@ -259,7 +498,7 @@ export default function ContactPage() {
       </section>
 
       {/* Office Locations */}
-      <section className="pb-20 bg-gray-50">
+      <section className="pb-20 bg-gray-50 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -268,8 +507,8 @@ export default function ContactPage() {
             className="text-center mb-12"
           >
             <MapPin className="mx-auto text-primary-600 mb-4" size={48} />
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Offices</h2>
-            <p className="text-xl text-gray-600">Visit us at any of our locations across Africa</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Our Offices</h2>
+            <p className="text-xl text-gray-600 dark:text-slate-300">Visit us at any of our locations across Africa</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -281,27 +520,27 @@ export default function ContactPage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full border-2 rounded-2xl hover:shadow-lg transition-all">
+                <Card className="h-full border-2 rounded-2xl hover:shadow-lg transition-all dark:border-slate-700 dark:bg-slate-900/80">
                   <CardHeader>
                     <div className="text-4xl mb-3">{office.flag}</div>
-                    <CardTitle className="text-xl">{office.city}</CardTitle>
-                    <CardDescription className="text-sm font-semibold text-primary-600">
+                    <CardTitle className="text-xl text-gray-900 dark:text-white">{office.city}</CardTitle>
+                    <CardDescription className="text-sm font-semibold text-primary-600 dark:text-primary-300">
                       {office.type}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="flex items-start text-sm text-gray-600">
-                      <MapPin size={16} className="mr-2 mt-0.5 flex-shrink-0 text-gray-400" />
+                    <div className="flex items-start text-sm text-gray-600 dark:text-slate-300">
+                      <MapPin size={16} className="mr-2 mt-0.5 flex-shrink-0 text-gray-400 dark:text-slate-500" />
                       <span>{office.address}</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Phone size={16} className="mr-2 flex-shrink-0 text-gray-400" />
+                    <div className="flex items-center text-sm text-gray-600 dark:text-slate-300">
+                      <Phone size={16} className="mr-2 flex-shrink-0 text-gray-400 dark:text-slate-500" />
                       <a href={`tel:${office.phone}`} className="hover:text-primary-600">
                         {office.phone}
                       </a>
                     </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Mail size={16} className="mr-2 flex-shrink-0 text-gray-400" />
+                    <div className="flex items-center text-sm text-gray-600 dark:text-slate-300">
+                      <Mail size={16} className="mr-2 flex-shrink-0 text-gray-400 dark:text-slate-500" />
                       <a href={`mailto:${office.email}`} className="hover:text-primary-600">
                         {office.email}
                       </a>

@@ -13,31 +13,31 @@ const partnerCategories = [
 
 export function Partners() {
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-slate-950 dark:to-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <h2 className="text-sm font-semibold text-secondary-600 uppercase tracking-wide mb-2">Our Growing Network</h2>
-          <h3 className="text-4xl font-bold text-gray-900 mb-4">Building Africa's Healthcare Future</h3>
+          <h2 className="text-sm font-semibold text-secondary-600 dark:text-secondary-300 uppercase tracking-wide mb-2">Our Growing Network</h2>
+          <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Building Africa's Healthcare Future</h3>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {partnerCategories.map((cat, idx) => (
             <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }} whileHover={{ y: -5 }}>
-              <Card className="h-full hover:shadow-xl transition-all duration-500 border-2 hover:border-primary-200 rounded-2xl">
+              <Card className="h-full hover:shadow-xl transition-all duration-500 border-2 hover:border-primary-200 dark:border-slate-700 dark:bg-slate-900/80 rounded-2xl">
                 <CardHeader>
                   <div className="flex items-center justify-between mb-4">
                     <div className={`p-3 rounded-xl bg-gradient-to-br ${cat.color} shadow-lg`}>
                       <cat.icon className="text-white" size={24} />
                     </div>
-                    <span className="text-3xl font-bold text-gray-300">{cat.count}</span>
+                    <span className="text-3xl font-bold text-gray-300 dark:text-slate-500">{cat.count}</span>
                   </div>
-                  <CardTitle className="text-xl mb-4">{cat.title} Partners</CardTitle>
+                  <CardTitle className="text-xl text-gray-900 dark:text-white mb-4">{cat.title} Partners</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
                     {cat.partners.map((p, i) => (
-                      <li key={i} className="flex items-start text-sm text-gray-700">
-                        <span className="text-secondary-500 mr-2">•</span>
+                      <li key={i} className="flex items-start text-sm text-gray-700 dark:text-slate-300">
+                        <span className="text-secondary-500 dark:text-secondary-300 mr-2">•</span>
                         {p}
                       </li>
                     ))}

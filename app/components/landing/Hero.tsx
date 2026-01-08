@@ -2,16 +2,85 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Database, Brain, Scan, BrainCircuit, Waves, HeartPulse, Microscope, TestTube } from 'lucide-react';
+import { Database, Brain, BrainCircuit, HeartPulse, Microscope } from 'lucide-react';
 import { Tac, Xray, UltrasoundScanner, HeartCardiogram } from 'healthicons-react';
 import Link from 'next/link';
+
+function MriMachineIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="6" y="14" width="52" height="36" rx="6" />
+      <circle cx="32" cy="32" r="10" />
+      <rect x="26" y="28" width="12" height="8" rx="2" />
+      <path d="M12 50h40" />
+      <path d="M20 52h24" />
+      <path d="M32 32h14" />
+      <path d="M46 32l10 4" />
+    </svg>
+  );
+}
+
+function DtiIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="32" r="4" />
+      <circle cx="32" cy="12" r="4" />
+      <circle cx="52" cy="32" r="4" />
+      <circle cx="32" cy="52" r="4" />
+      <path d="M16 32c6-8 20-8 28 0" />
+      <path d="M16 32c6 8 20 8 28 0" />
+      <path d="M32 16c-8 6-8 20 0 28" />
+      <path d="M32 16c8 6 8 20 0 28" />
+    </svg>
+  );
+}
+
+function LabIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M24 6h16" />
+      <path d="M28 6v18l-12 22a8 8 0 0 0 7 12h18a8 8 0 0 0 7-12l-12-22V6" />
+      <path d="M22 40h20" />
+      <path d="M26 34h12" />
+      <circle cx="28" cy="46" r="2" />
+      <circle cx="36" cy="50" r="2" />
+    </svg>
+  );
+}
 
 export function Hero() {
   const modalityIcons = [
     // Neuroimaging
-    { icon: Scan, label: 'MRI', position: { top: '10%', left: '8%' }, size: 'large', color: 'primary', type: 'lucide' },
+    { icon: MriMachineIcon, label: 'MRI', position: { top: '10%', left: '8%' }, size: 'large', color: 'primary', type: 'custom' },
     { icon: BrainCircuit, label: 'fMRI', position: { top: '25%', right: '8%' }, size: 'large', color: 'secondary', type: 'lucide' },
-    { icon: Waves, label: 'DTI', position: { bottom: '35%', left: '15%' }, size: 'medium', color: 'primary', type: 'lucide' },
+    { icon: DtiIcon, label: 'DTI', position: { bottom: '35%', left: '15%' }, size: 'medium', color: 'primary', type: 'custom' },
     { icon: Brain, label: 'PET', position: { bottom: '15%', right: '12%' }, size: 'medium', color: 'secondary', type: 'lucide' },
 
     // General Imaging
@@ -25,7 +94,7 @@ export function Hero() {
 
     // Pathology & Lab
     { icon: Microscope, label: 'Pathology', position: { bottom: '45%', left: '35%' }, size: 'small', color: 'secondary', type: 'lucide' },
-    { icon: TestTube, label: 'Lab', position: { bottom: '10%', left: '25%' }, size: 'small', color: 'primary', type: 'lucide' },
+    { icon: LabIcon, label: 'Lab', position: { bottom: '10%', left: '25%' }, size: 'small', color: 'primary', type: 'custom' },
   ];
 
   return (
@@ -103,22 +172,26 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="xl" className="group">
-              Get Started
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link
+                href="/ai-tools"
+                className="relative bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-bold py-4 px-10 rounded-xl transition-all duration-300 hover:shadow-2xl inline-flex items-center justify-center gap-2 overflow-hidden group"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-primary-700 to-secondary-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10 flex items-center gap-2">
+                  AI Tools
+                  <Brain className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Link>
+            </motion.div>
 
             <Button size="xl" variant="outline" className="border-2 border-black hover:bg-black hover:text-white" asChild>
               <Link href="/explore">
                 Explore Data
                 <Database className="ml-2" />
-              </Link>
-            </Button>
-
-            <Button size="xl" variant="outline" className="border-2 border-black hover:bg-black hover:text-white" asChild>
-              <Link href="/ai-tools">
-                AI Tools
-                <Brain className="ml-2" />
               </Link>
             </Button>
           </div>

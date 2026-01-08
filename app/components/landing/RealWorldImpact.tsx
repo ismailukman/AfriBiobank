@@ -98,7 +98,7 @@ export function RealWorldImpact() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary-200/20 rounded-full blur-3xl" />
@@ -114,10 +114,10 @@ export function RealWorldImpact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Real-World Impact
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
             Transforming healthcare across Africa with data-driven insights and collaborative innovation
           </p>
         </motion.div>
@@ -135,28 +135,28 @@ export function RealWorldImpact() {
               key={scenario.location}
               variants={itemVariants}
               whileHover={{ scale: 1.03, y: -5 }}
-              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:shadow-2xl transition-shadow duration-300"
+              className="bg-white dark:bg-slate-900/80 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-slate-700 hover:shadow-2xl transition-shadow duration-300"
             >
               <div className={`w-16 h-16 bg-gradient-to-br ${scenario.gradient} rounded-xl flex items-center justify-center mb-6 shadow-lg`}>
                 <scenario.icon className="text-white" size={32} />
               </div>
 
               <div className="flex items-center gap-2 mb-4">
-                <MapPin size={16} className="text-gray-500" />
-                <span className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
+                <MapPin size={16} className="text-gray-500 dark:text-slate-400" />
+                <span className="text-sm font-semibold text-gray-600 dark:text-slate-300 uppercase tracking-wide">
                   {scenario.location}
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                 {scenario.title}
               </h3>
 
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 dark:text-slate-300 leading-relaxed">
                 {scenario.description}
               </p>
 
-              <div className="mt-6 pt-6 border-t border-gray-200">
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-slate-700">
                 <div className={`inline-block px-4 py-2 bg-gradient-to-r ${scenario.gradient} text-white text-sm font-semibold rounded-full`}>
                   Live Implementation
                 </div>
@@ -173,7 +173,7 @@ export function RealWorldImpact() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mb-12"
         >
-          <h3 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+          <h3 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">
             Delivering Value to Every Stakeholder
           </h3>
         </motion.div>
@@ -191,10 +191,10 @@ export function RealWorldImpact() {
               key={impact.stakeholder}
               variants={itemVariants}
               whileHover={{ scale: 1.05, rotate: 1 }}
-              className={`${impact.bgColor} ${impact.borderColor} border-2 rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300`}
+              className={`${impact.bgColor} ${impact.borderColor} dark:bg-slate-900/80 dark:border-slate-700 border-2 rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300`}
             >
               <div className="flex flex-col items-center text-center">
-                <div className={`w-14 h-14 ${impact.color} bg-white rounded-full flex items-center justify-center mb-4 shadow-md`}>
+                <div className={`w-14 h-14 ${impact.color} bg-white dark:bg-slate-950 rounded-full flex items-center justify-center mb-4 shadow-md`}>
                   <impact.icon size={28} />
                 </div>
 
@@ -202,7 +202,7 @@ export function RealWorldImpact() {
                   {impact.stakeholder}
                 </h4>
 
-                <p className="text-gray-700 text-sm font-medium">
+                <p className="text-gray-700 dark:text-slate-300 text-sm font-medium">
                   {impact.impact}
                 </p>
               </div>

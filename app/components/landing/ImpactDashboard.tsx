@@ -13,24 +13,24 @@ const impactMetrics = [
 
 export function ImpactDashboard() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <h2 className="text-sm font-semibold text-primary-600 uppercase tracking-wide mb-2">Our Growing Impact</h2>
-          <h3 className="text-4xl font-bold text-gray-900 mb-4">Advancing African Healthcare</h3>
+          <h2 className="text-sm font-semibold text-primary-600 dark:text-primary-300 uppercase tracking-wide mb-2">Our Growing Impact</h2>
+          <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Advancing African Healthcare</h3>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {impactMetrics.map((metric, idx) => (
             <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }} whileHover={{ y: -5 }}>
-              <Card className="h-full hover:shadow-xl transition-all duration-500 border-2 hover:border-primary-200 rounded-2xl">
+              <Card className="h-full hover:shadow-xl transition-all duration-500 border-2 hover:border-primary-200 dark:border-slate-700 dark:bg-slate-900/80 rounded-2xl">
                 <CardHeader>
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${metric.color} flex items-center justify-center mb-4 shadow-lg`}>
                     <metric.icon className="text-white" size={24} />
                   </div>
-                  <CardTitle className="text-5xl font-bold text-gray-900 mb-2">{metric.count}</CardTitle>
-                  <CardDescription className="text-base font-semibold text-gray-900">{metric.title}</CardDescription>
-                  <p className="text-sm text-gray-600 mb-2">{metric.desc}</p>
+                  <CardTitle className="text-5xl font-bold text-gray-900 dark:text-white mb-2">{metric.count}</CardTitle>
+                  <CardDescription className="text-base font-semibold text-gray-900 dark:text-slate-200">{metric.title}</CardDescription>
+                  <p className="text-sm text-gray-600 dark:text-slate-300 mb-2">{metric.desc}</p>
                   <div className="flex items-center text-sm">
                     <TrendingUp size={14} className="text-green-500 mr-1" />
                     <span className="text-green-600 font-semibold">{metric.trend}</span>
@@ -41,11 +41,11 @@ export function ImpactDashboard() {
           ))}
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-12 text-center bg-gradient-to-r from-primary-50 to-secondary-50 p-8 rounded-2xl">
-          <Award className="mx-auto text-primary-600 mb-4" size={40} />
-          <h4 className="text-2xl font-bold text-gray-900 mb-3">Citation Impact</h4>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-            AfriBiobank publications cited <span className="font-bold text-primary-600">3,400+ times</span>, avg impact factor <span className="font-bold text-secondary-600">12.8</span>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-12 text-center bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-slate-900 dark:to-slate-800 p-8 rounded-2xl">
+          <Award className="mx-auto text-primary-600 dark:text-primary-300 mb-4" size={40} />
+          <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Citation Impact</h4>
+          <p className="text-lg text-gray-700 dark:text-slate-300 max-w-3xl mx-auto">
+            AfriBiobank publications cited <span className="font-bold text-primary-600 dark:text-primary-300">3,400+ times</span>, avg impact factor <span className="font-bold text-secondary-600 dark:text-secondary-300">12.8</span>
           </p>
         </motion.div>
       </div>

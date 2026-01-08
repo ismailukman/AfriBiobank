@@ -61,13 +61,13 @@ export function Solution() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-sm font-semibold text-secondary-600 uppercase tracking-wide mb-2">
+          <h2 className="text-sm font-semibold text-secondary-600 dark:text-secondary-300 uppercase tracking-wide mb-2">
             Our Solution
           </h2>
-          <h3 className="text-4xl font-bold text-gray-900 mb-4">
+          <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             A Medical Imaging Biobank Built for Africa, by Africa
           </h3>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
             AfriBiobank is more than a database. It's a collaborative platform that connects
             hospitals, researchers, policymakers, and communities across Africa through
             cutting-edge federated learning technology.
@@ -114,7 +114,7 @@ export function Solution() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <p className="text-lg font-semibold text-gray-900">
+          <p className="text-lg font-semibold text-gray-900 dark:text-white">
             We don't just talk about equity—we build it into the architecture of African healthcare innovation.
           </p>
         </motion.div>

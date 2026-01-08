@@ -128,15 +128,15 @@ export function SuccessStories() {
                     <div className="space-y-4">
                       <div>
                         <h4 className="font-semibold text-red-400 mb-2">Challenge:</h4>
-                        <p className="text-gray-300">{currentStory.challenge}</p>
+                        <p className="text-gray-100">{currentStory.challenge}</p>
                       </div>
                       <div>
                         <h4 className="font-semibold text-green-400 mb-2">Solution:</h4>
-                        <p className="text-gray-300">{currentStory.solution}</p>
+                        <p className="text-gray-100">{currentStory.solution}</p>
                       </div>
                       <div className="bg-white/5 p-4 rounded-lg border-l-4 border-primary-500">
                         <p className="italic text-gray-200 mb-2">"{currentStory.quote}"</p>
-                        <p className="text-sm text-gray-400">— {currentStory.author}</p>
+                        <p className="text-sm text-gray-200">— {currentStory.author}</p>
                       </div>
                       <p className="text-sm text-primary-400">📄 {currentStory.publication}</p>
                     </div>
@@ -155,7 +155,7 @@ export function SuccessStories() {
                             className="bg-gradient-to-br from-primary-500/20 to-secondary-500/20 p-4 rounded-xl text-center"
                           >
                             <div className="text-3xl font-bold text-white mb-1">{result.metric}</div>
-                            <div className="text-sm text-gray-300">{result.label}</div>
+                            <div className="text-sm text-gray-100">{result.label}</div>
                           </motion.div>
                         ))}
                       </div>
