@@ -44,7 +44,7 @@ export function ImpactDashboard() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-12 text-center bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-slate-900 dark:to-slate-800 p-8 rounded-2xl">
           <Award className="mx-auto text-primary-600 dark:text-primary-300 mb-4" size={40} />
           <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Citation Impact</h4>
-          <p className="text-lg text-gray-700 dark:text-slate-300 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-900 dark:text-slate-300 max-w-3xl mx-auto">
             AfriBiobank publications cited <span className="font-bold text-primary-600 dark:text-primary-300">3,400+ times</span>, avg impact factor <span className="font-bold text-secondary-600 dark:text-secondary-300">12.8</span>
           </p>
         </motion.div>
