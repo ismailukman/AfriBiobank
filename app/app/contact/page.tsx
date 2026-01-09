@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, MapPin, Phone, MessageCircle, Building2, HelpCircle, Briefcase, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
@@ -113,6 +113,26 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
+  const notificationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (notificationTimeoutRef.current) {
+        clearTimeout(notificationTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const showNotification = (status: 'success' | 'error', message: string) => {
+    setSubmitStatus(status);
+    setSubmitMessage(message);
+    if (notificationTimeoutRef.current) {
+      clearTimeout(notificationTimeoutRef.current);
+    }
+    notificationTimeoutRef.current = setTimeout(() => {
+      setSubmitStatus('idle');
+    }, 5000);
+  };
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -186,17 +206,25 @@ export default function ContactPage() {
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
     try {
-      // Add document to Firestore
-      const contactsRef = collection(db, 'contacts');
-      await addDoc(contactsRef, {
-        ...formData,
-        submittedAt: serverTimestamp(),
-        status: 'new',
+      const submissionTimeout = new Promise((_, reject) => {
+        timeoutId = setTimeout(() => reject(new Error('Request timed out')), 15000);
       });
 
-      setSubmitStatus('success');
-      setSubmitMessage('Thank you for contacting us! We\'ll get back to you within 24-48 hours.');
+      // Add document to Firestore
+      const contactsRef = collection(db, 'contacts');
+      await Promise.race([
+        addDoc(contactsRef, {
+          ...formData,
+          submittedAt: serverTimestamp(),
+          status: 'new',
+        }),
+        submissionTimeout,
+      ]);
+
+      showNotification('success', 'Thank you for contacting us! We\'ll get back to you within 24-48 hours.');
 
       // Reset form
       setFormData({
@@ -208,21 +236,17 @@ export default function ContactPage() {
         message: '',
         consent: false,
       });
-
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 5000);
     } catch (error) {
       console.error('Error submitting form:', error);
-      setSubmitStatus('error');
-      setSubmitMessage('Something went wrong. Please try again or email us directly.');
-
-      // Clear error message after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 5000);
+      const errorMessage =
+        error instanceof Error && error.message === 'Request timed out'
+          ? 'Request timed out. Please check your connection and try again.'
+          : 'Something went wrong. Please try again or email us directly.';
+      showNotification('error', errorMessage);
     } finally {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
       setIsSubmitting(false);
     }
   };
@@ -311,29 +335,27 @@ export default function ContactPage() {
           >
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Send us a message</h3>
 
-            {/* Status Messages */}
+            {/* Notification Toast */}
             <AnimatePresence>
-              {submitStatus === 'success' && (
+              {submitStatus !== 'idle' && (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
+                  initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-xl flex items-start"
+                  exit={{ opacity: 0, y: -20 }}
+                  className={`fixed top-24 left-6 right-6 z-50 w-[calc(100%-3rem)] max-w-sm rounded-xl border-2 px-4 py-3 shadow-xl sm:left-auto sm:right-6 sm:w-auto ${
+                    submitStatus === 'success'
+                      ? 'border-green-200 bg-green-50 text-green-800'
+                      : 'border-red-200 bg-red-50 text-red-800'
+                  }`}
                 >
-                  <CheckCircle className="text-green-600 mr-3 flex-shrink-0" size={24} />
-                  <p className="text-green-800">{submitMessage}</p>
-                </motion.div>
-              )}
-
-              {submitStatus === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl flex items-start"
-                >
-                  <AlertCircle className="text-red-600 mr-3 flex-shrink-0" size={24} />
-                  <p className="text-red-800">{submitMessage}</p>
+                  <div className="flex items-start gap-3">
+                    {submitStatus === 'success' ? (
+                      <CheckCircle className="text-green-600 flex-shrink-0" size={22} />
+                    ) : (
+                      <AlertCircle className="text-red-600 flex-shrink-0" size={22} />
+                    )}
+                    <p className="text-sm leading-snug">{submitMessage}</p>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
