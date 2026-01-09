@@ -1,0 +1,23 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Contacts collection - Allow anyone to create, only admins to read/update/delete
+    match /contacts/{contactId} {
+      // Allow anyone to create new contact submissions
+      allow create: if true;
+
+      // Only authenticated users can read (for future admin panel)
+      allow read: if request.auth != null;
+
+      // Only authenticated users can update/delete (for future admin panel)
+      allow update, delete: if request.auth != null;
+    }
+
+    // Default deny all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
